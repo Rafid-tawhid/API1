@@ -26,36 +26,62 @@ public class MainActivity extends AppCompatActivity {
 
         OurRetrofitClient ourRetrofitClient=retrofit.create(OurRetrofitClient.class);
 
-       Call<OurMainDataClass> call= ourRetrofitClient.getData("BvI7ZMd5UxW8Xl1thH6pbKJdbXWSUBJxEbSuze8PjxgA9y0wvHEkPv26Pqz1");
+//       Call<OurMainDataClass> call= ourRetrofitClient.getData("BvI7ZMd5UxW8Xl1thH6pbKJdbXWSUBJxEbSuze8PjxgA9y0wvHEkPv26Pqz1");
 
 
-        call.enqueue(new Callback<OurMainDataClass>() {
+//        call.enqueue(new Callback<OurMainDataClass>() {
+//            @Override
+//            public void onResponse(Call<OurMainDataClass> call, Response<OurMainDataClass> response) {
+//
+//                if (response.isSuccessful())
+//                {
+//
+//                    List<ObjectDataClass> list=response.body().getData();
+//
+//                    for (ObjectDataClass objectDataClass:list)
+//                    {
+//                        Log.d("aa",objectDataClass.getName());
+//                        Log.d("aa",String.valueOf(objectDataClass.getId()));
+//
+//                    }
+//
+//                }
+//                else
+//                {
+//                    Log.d("response","failed");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<OurMainDataClass> call, Throwable t) {
+//
+//                Log.d("response","failed");
+//            }
+//        });
+
+        //call by id
+        Call<CallById> call= ourRetrofitClient.getData(5,"BvI7ZMd5UxW8Xl1thH6pbKJdbXWSUBJxEbSuze8PjxgA9y0wvHEkPv26Pqz1");
+
+        call.enqueue(new Callback<CallById>() {
             @Override
-            public void onResponse(Call<OurMainDataClass> call, Response<OurMainDataClass> response) {
+            public void onResponse(Call<CallById> call, Response<CallById> response) {
+                if (response.isSuccessful()) {
 
-                if (response.isSuccessful())
-                {
+                    ObjectDataClass objectDataClass = response.body().getData();
 
-                    List<ObjectDataClass> list=response.body().getData();
+                    Log.d("aa",objectDataClass.getName());
+                    Log.d("aa",objectDataClass.getResource());
+                    Log.d("aa",String.valueOf(objectDataClass.getId()));
+                    Log.d("aa",objectDataClass.getUpdated_at());
 
-                    for (ObjectDataClass objectDataClass:list)
-                    {
-                        Log.d("aa",objectDataClass.getName());
-                        Log.d("aa",String.valueOf(objectDataClass.getId()));
-
-                    }
 
                 }
-                else
-                {
-                    Log.d("response","failed");
-                }
+
             }
 
             @Override
-            public void onFailure(Call<OurMainDataClass> call, Throwable t) {
+            public void onFailure(Call<CallById> call, Throwable t) {
 
-                Log.d("response","failed");
             }
         });
 
